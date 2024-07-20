@@ -1,0 +1,81 @@
+﻿@model Student_registration.Models.StudentFoms;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2 style="background-color:aqua">Student Registration Form</h2>
+         @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+        <form asp-action="Students"  method="post">
+          <div class="row">
+              <div class="col-6">
+                   <div class="form-group">
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fulname" name="fullname" asp-for="Fullname" required>
+                <span asp-validation-for="Fullname" class="text-danger"> </span>
+           </div>
+            <div class="form-group">
+                <label for="fathername">Father Name:</label>
+                <input type="text" id="fathername" name="fathername" asp-for="Fathername" required>
+                <span asp-validation-for="Fathername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" asp-for="Email" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" asp-for="Phone">
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            
+
+              </div>
+               
+<div class="col-6">
+     <div class="form-group">
+                  <label for="phone">Address:</label>
+                  <input type="text" id="address" name="address" asp-for="Address">
+                  <span asp-validation-for="Address" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+                  <label for="city" >city:</label>
+                  <input type="text" name="city" asp-for="City" />
+                  <span asp-validation-for="City " class="text-danger"> </span>
+              </div>
+           <div class="form-group">
+               <label for="rollno" > Roll Number</label>
+               <input  type="number" name="rollno" asp-for="Rollno"/>
+               <span asp-validation-for="Rollno" class="text-danger"> </span> 
+           </div>
+           <div class="form-group">
+               <label for="Marks" >Enter Marks </label>
+               <input type="number" name="Marks" asp-for="Marks"/>
+               <span asp-validation-for="Marks" class="text-danger"> </span>
+           </div>
+
+           </div>
+          </div>
+            
+          
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

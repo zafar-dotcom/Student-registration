@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Student_registration.Models.StudentFoms>
+@{
+    ViewData["Title"] = "Students";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fathername)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rollno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marks)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(a => item.Fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Fathername)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Rollno)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Marks)
+                </td>
+                
+                
+                <td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

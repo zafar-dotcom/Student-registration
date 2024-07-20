@@ -1,0 +1,51 @@
+﻿@model Student_registration.Models.teachermodel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2>teachers regestration form</h2>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+        <form asp-action="Teachers" method="post">
+        <div class="form-group">
+            <label for="FullName">FullName </label>
+            <input type="text" id="fulname" name="fullName" asp-for="FullName" required>
+        <span asp-validation-for="FullName"class="text-danger"> </span>
+        </div>
+        <div class="form-group">
+             <label for="fathername">FatherName </label>
+             <input type="text" id="fathername" name="fathername" asp-for="FatherName" required>
+            <span asp-validation-for="FatherName" class="text-danger"> </span>
+        </div>
+        <div class="from-group">
+        <label for="email">Email </label>
+         <input type="email" id="email" name="email" asp-for="Email">
+            <span asp-validation-for="Email" class="text-danger"> </span>
+         </div>
+        <div class="from-group">
+            <label for="phone">Phone </label>
+            <input type="text" id="phone" name="phone" asp-for="Phone">
+            <span asp-validation-for="Phone" class="text-danger"> </span>
+        </div>
+        <div class="from-group">
+            <label for="Dob">Date of birth </label>
+            <input type="date" id="dob" name="dob" asp-for="Dob">
+            <span asp-validation-for="Dob" class="text-danger"> </span>
+        </div>
+              <button type="submit">Submit </button>
+        </form>
+    </div>
+    
+</body>
+

@@ -1,0 +1,78 @@
+﻿@model Student_registration.Models.Doctors;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2> Doctor refistration form    </h2>
+        @if (!string.IsNullOrEmpty(ViewBag.meassage))
+        {
+            <div class="alert alert-success">
+                @ViewBag.meassage
+            </div>
+        }
+        <form action="Doctors" method="post">
+            <div class="  form-group">
+                <label for="fullname">FullName </label>
+                <input type="text" id="fullname" name="fullname" asp-for="FullName" required>
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="from-group">
+                <label for="fathername"> FatherName</label>
+                <input type="text" id="fathername" name="fathername" asp-for="FatherName" required>
+                <span asp-validation-for="FatherName" class="text-danger"></span>
+            </div>
+            <div class="fromg-group">
+                <label for="adress">Adress</label>
+                <input type="text" id="addre" name="adress" asp-for="Adress">
+                <span asp-validation-for="Adress" class="text-danger"></span>
+            </div>
+            <div class="fromg-group">
+                <label for="city">City</label>
+                <input type="text" id="ciy" name="city" asp-for="City">
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="fromg-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phon" name="phone" asp-for="Phone">
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="fromg-group">
+                <label for="email">Email</label>
+                <input type="text" id="emai" name="email" asp-for="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="from-group">
+                <label for="country">Country</label>
+                <input type="text" id="count" name="country" asp-for="Country">
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="from-group">
+                <label for=" hospital-name">Hospitalname </label>
+                <input type="text" id="host" name="hospitalname" asp-for="Hospitalname">
+                <span asp-validation-for="Hospitalname" class="text-danger"></span>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
