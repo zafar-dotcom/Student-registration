@@ -2,7 +2,8 @@
 {
     public class Doctors
     {
-     public string FullName { get; set; }
+        public int DoctorId { get; set; }
+        public string FullName { get; set; }
         public string FatherName { get; set; }    
         public string Adress { get; set; }
         public string City { get; set; }

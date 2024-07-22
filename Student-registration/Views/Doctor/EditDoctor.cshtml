@@ -1,0 +1,66 @@
+﻿@model Student_registration.Models.Doctors
+@{
+    ViewData["Title"] = "Edit Doctors";
+}
+
+<h1>Edit Doctors</h1>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <form asp-action="EditDoctor">
+
+        <div class="form-group">
+            <label asp-for="FullName"> Full Name</label>
+            <input type="text" asp-for="FullName" name="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-dark"> </span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FatherName">Father Name</label>
+            <input type="text" asp-for="FatherName" name="FatherName" class="form-control" />
+            <span asp-validation-for="FatherName" class="text-dark"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Adress"> Address</label>
+            <input type="text" asp-for="Adress" name="Adress" class="form-control" />
+            <span asp-validation-for="Adress" class="text-dark"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City">City</label>
+            <input type="text" asp-for="City" name="City" class="form-control" />
+            <span asp-validation-for="City" class="text-dark"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone">Phone</label>
+            <input type="text" asp-for="Phone" name="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-dark"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input type="text" asp-for="Email" name="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-dark"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Country">Country</label>
+            <input type="text" asp-for="Country" name="Country" class="form-control"/>
+            <span asp-validation-for="Country" class="text-dark"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Hospitalname"> Hospital Name</label>
+            <input type="text" asp-for="Hospitalname" name="Hospitalname" class="form-control" />
+            <span asp-validation-for="Hospitalname" class="text-dark"></span>
+        </div>
+    </form>
+
+
+
+</body>
+</html>
+

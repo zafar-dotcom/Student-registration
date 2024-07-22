@@ -2,7 +2,18 @@
 @{
     ViewData["Title"] = "Doctors";
 }
+@if (TempData["updated"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["updated"]
+    </div>
+}
 
+<h2>Teachers</h2>
+
+<p>
+    @Html.ActionLink("Create New Doctor", "Doctor", null, new { @class = "btn btn-primary" })
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -62,8 +73,10 @@
                     @Html.DisplayFor(a => item.Hospitalname)
                 </td>
                 <td>
-                    
+                    @Html.ActionLink("UPDATE", "Edit", new { DoctorId = item.DoctorId }) |
+
                 </td>
+              
             </tr>
         }
     </tbody>
