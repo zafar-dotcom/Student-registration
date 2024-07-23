@@ -14,10 +14,6 @@ namespace Student_registration
         }
 
         // CRUD create Read ,update ,delete
-
-
-
-
         #region  --------------Create ------------------
         public bool InsertStudent(Doctors doctors)
         {
@@ -236,7 +232,7 @@ namespace Student_registration
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = "SELECT * FROM Doctor WHERE DoctorId = @id";
+                    string sqlQuery = "SELECT * FROM Doctor WHERE TeacherId = @id";
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
@@ -247,14 +243,15 @@ namespace Student_registration
                             {
                                 doctor = new Doctors
                                 {
+                                    DoctorId = Convert.ToInt32(reader["TeacherId"].ToString()),
                                     FullName = reader["FullName"].ToString(),
-                                    FatherName = reader["FatherName"].ToString(),
+                                    FatherName = reader["FatherNAME"].ToString(),
                                     Adress = reader["Adress"].ToString(),
                                     City = reader["City"].ToString(),
                                     Phone = reader["Phone"].ToString(),
-                                    Email = reader["Email"].ToString(),
+                                    Email = reader["Emial"].ToString(),
                                     Country = reader["Country"].ToString(),
-                                    Hospitalname = reader["Hospitalname"].ToString(),
+                                    Hospitalname = reader["Hospital_Name"].ToString(),
 
                                 };
                             }
@@ -286,6 +283,7 @@ namespace Student_registration
                             {
                                 Doctors obj = new Doctors
                                 {
+                                    DoctorId = reader.GetInt32(reader.GetOrdinal("TeacherId")),
                                     FullName = reader["FullName"].ToString(),
                                     FatherName = reader["FatherNAME"].ToString(),
                                     Adress = reader["Adress"].ToString(),
@@ -350,16 +348,13 @@ namespace Student_registration
 
         #endregion  -----------Read ------------
 
-
-
-
-
         #region -----------Edit----------
         public bool UpdateTeacher(teachermodel teacher)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = "UPDATE teachers SET FullName = @FullName, FatherName = @FatherName, Email = @Email, Phone = @Phone, Dob = @Dob WHERE TeacherId = @Id";
+                string query = "UPDATE teachers SET FullName = @FullName, FatherName = @FatherName, " +
+                    "Email = @Email, Phone = @Phone, Dob = @Dob WHERE TeacherId = @Id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@FullName", teacher.FullName);
                 cmd.Parameters.AddWithValue("@FatherName", teacher.FatherName);
@@ -410,9 +405,10 @@ namespace Student_registration
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = "UPDATE Doctor SET  DoctorId  = @DoctorId,FullName =@FullName, FatherNAME = @FatherNAME, Adress = @Adress, City = @City, Phone = @Phone,Emial = @Emial,Country = @Country,Hospital_Name = @Hospital_Name WHERE DoctorId ";
+                string query = "UPDATE Doctor SET FullName =@FullName, FatherNAME = @FatherNAME," +
+                    " Adress = @Adress, City = @City, Phone = @Phone,Emial = @Emial," +
+                    "Country = @Country,Hospital_Name = @Hospital_Name  WHERE TeacherId = @Id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@DoctorId", doctors.DoctorId);
                 cmd.Parameters.AddWithValue("@FullName", doctors.FullName);
                 cmd.Parameters.AddWithValue("@FatherNAME", doctors.FatherName);
                 cmd.Parameters.AddWithValue("@Adress", doctors.Adress);
@@ -421,10 +417,18 @@ namespace Student_registration
                 cmd.Parameters.AddWithValue("@Emial", doctors.Email);
                 cmd.Parameters.AddWithValue("@Country", doctors.Country);
                 cmd.Parameters.AddWithValue("@Hospital_Name", doctors.Hospitalname);// Assuming Id is the primary key
-
+                cmd.Parameters.AddWithValue("@Id", doctors.DoctorId);
                 conn.Open();
                 int result = cmd.ExecuteNonQuery();
-                return result > 0;
+                if (result >0)
+                { 
+                return true;
+                }
+                else
+                        {
+                    return false;
+                }
+              
             }
         }
 
@@ -460,8 +464,6 @@ namespace Student_registration
 
             return doctors;
         }
-
-
 
                              #endregion-----Doctor---------
     }

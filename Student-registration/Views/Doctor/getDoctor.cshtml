@@ -73,7 +73,9 @@
                     @Html.DisplayFor(a => item.Hospitalname)
                 </td>
                 <td>
-                    @Html.ActionLink("UPDATE", "Edit", new { DoctorId = item.DoctorId }) |
+                    @Html.ActionLink("UPDATE", "EditDoctor", new { DoctorId = item.DoctorId }, new { @class = "btn btn-primary" })
+
+                   
 
                 </td>
               

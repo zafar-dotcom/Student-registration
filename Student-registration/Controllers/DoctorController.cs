@@ -18,7 +18,7 @@ namespace Student_registration.Controllers
         [HttpGet]
         public IActionResult Doctors()
         {
-            return View();
+            return View(); // this will goto view means Docstors.cshtml file
         }
         [HttpPost]
         public IActionResult Doctors(Doctors doctors)
