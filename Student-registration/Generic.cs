@@ -137,7 +137,7 @@ namespace Student_registration
                 throw;
             }
         }
-        public bool InsertPatient(Patient patients)
+        public bool InsertStudent(Patient patients)
         {
             try
             {
@@ -516,7 +516,7 @@ namespace Student_registration
             {
                 string query = "UPDATE Patient SET fullname =@fullname, fathername = @fathername," +
                     " bednumber = @bednumber, phone = @phone, city = @city,hospital = @hospital," +
-                    "dob = @dob,adress = @medicalhistory  WHERE patient_id = @Id";
+                    "dob = @dob,adress =@adress,emergencycontact = @emergencycontact,medicalhistory=@medicalhistory ,bloodtype = @bloodtype,allergies = @allergies WHERE patient_id = @Id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@fullname", patients.FullName);
                 cmd.Parameters.AddWithValue("@fathername", patients.FatherName);

@@ -24,7 +24,7 @@ namespace Student_registration.Controllers
         public IActionResult Patients(Patient patients)
         {
             Generic generic = new Generic();
-            bool result = generic.InsertPatient(patients);
+            bool result = generic.InsertStudent(patients);
             if (result == true)
             {
                 ViewBag.meassage = "patients inserted successfuly!";
@@ -35,17 +35,15 @@ namespace Student_registration.Controllers
             {
                 ViewBag.message = "Failed";
                 return View(patients);
-            }
-
-            return View(patients);
+            }  
         }
       
         [HttpGet]
         public IActionResult getpatient()
         {
-            Generic patient = new Generic();//create generic object
-            var patients = patient.GetPatients();
-            return View(patients);//return view get patient
+            Generic patients = new Generic();//create generic object
+            var patient = patients.GetPatients();
+            return View(patient);//return view get patient
         }
         //Edit patient
         [HttpGet]
@@ -70,8 +68,8 @@ namespace Student_registration.Controllers
                 bool result = obj.UpdatePatient(patients);
                 if (result)
                 {
-                    TempData["updated"] = "Patient updated successfully!";
-                    return RedirectToAction("GetPatients");
+                    TempData["updated"] = "Patients updated successfully!";
+                    return RedirectToAction("Getpatient");
                 }
                 else
                 {

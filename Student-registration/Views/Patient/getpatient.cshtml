@@ -1,8 +1,19 @@
 ﻿@model IEnumerable<Student_registration.Models.Patient>
 @{
-    ViewData["Title"] = "Patients";
+    ViewData["Title"] = "Patient";
+}
+@if (TempData["updated"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["updated"]
+    </div>
 }
 
+<h2>Patient</h2>
+
+<p>
+    @Html.ActionLink("Create New Patient", "Patient", null, new { @class = "btn btn-primary" })
+</p>
 <table class="table">
     <thead>
         <tr>
