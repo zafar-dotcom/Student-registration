@@ -266,6 +266,44 @@ namespace Student_registration
             }
             return doctor;
         }
+        public List<teachermodel> Getteachers()
+        {
+            List<teachermodel> teachers = new List<teachermodel>();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT * FROM Teachers";
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                teachermodel obj = new teachermodel
+                                {
+                                    teacherid = Convert.ToInt32(reader["TeacherId"]),
+                                    FullName = reader["FullName"].ToString(),
+                                    FatherName = reader["FatherName"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    Phone = reader["Phone"].ToString(),
+
+                                };
+                                teachers.Add(obj);
+
+                            }
+
+                        }
+                    }
+                }
+                return teachers;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public List<Doctors> Getdoctors()
         {
             List<Doctors> doctors = new List<Doctors>();
@@ -307,14 +345,14 @@ namespace Student_registration
                 throw;
             }
         }
-        public List<teachermodel> Getteachers()
+        public List<Patient> GetPatients()
         {
-            List<teachermodel> teachers = new List<teachermodel>();
+            var patients = new List<Patient>();
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = "SELECT * FROM Teachers";
+                    string sqlQuery = "SELECT * FROM Patient";
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
                         connection.Open();
@@ -322,28 +360,33 @@ namespace Student_registration
                         {
                             while (reader.Read())
                             {
-                                teachermodel obj = new teachermodel
+                                patients.Add(new Patient
                                 {
-                                    teacherid = Convert.ToInt32(reader["TeacherId"]),
-                                    FullName = reader["FullName"].ToString(),
-                                    FatherName = reader["FatherName"].ToString(),
-                                    Email = reader["Email"].ToString(),
-                                    Phone = reader["Phone"].ToString(),
-
-                                };
-                                teachers.Add(obj);
-
+                                    PatientId = reader.GetInt32(reader.GetOrdinal("patient_id")),
+                                    FullName = reader["fullname"].ToString(),
+                                    FatherName = reader["fathername"].ToString(),
+                                    BedNumber = reader["bednumber"].ToString(),
+                                    Phone = reader["phone"].ToString(),
+                                    City = reader["city"].ToString(),
+                                    Hospital = reader["hospital"].ToString(),
+                                    DateOfBirth = Convert.ToDateTime(reader["dob"]),
+                                    Address = reader["adress"].ToString(),
+                                    EmergencyContact = reader["emergencycontact"].ToString(),
+                                    MedicalHistory = reader["medicalhistory"].ToString(),
+                                    BloodType = reader["bloodtype"].ToString(),
+                                    Allergies = reader["allergies"].ToString()
+                                });
                             }
-
                         }
+                        connection.Close();
                     }
                 }
-                return teachers;
             }
             catch (Exception)
             {
-                throw;
+                // Handle exception
             }
+            return patients;
         }
 
         #endregion  -----------Read ------------
@@ -465,6 +508,87 @@ namespace Student_registration
             return doctors;
         }
 
-                             #endregion-----Doctor---------
+        #endregion-----Doctor---------
+        #region----------Edit patient---------
+        public bool UpdatePatient(Patient patients)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "UPDATE Patient SET fullname =@fullname, fathername = @fathername," +
+                    " bednumber = @bednumber, phone = @phone, city = @city,hospital = @hospital," +
+                    "dob = @dob,adress = @medicalhistory  WHERE patient_id = @Id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@fullname", patients.FullName);
+                cmd.Parameters.AddWithValue("@fathername", patients.FatherName);
+                cmd.Parameters.AddWithValue("@bednumber", patients.BedNumber);
+                cmd.Parameters.AddWithValue("@phone", patients.Phone);
+                cmd.Parameters.AddWithValue("@city", patients.City);
+                cmd.Parameters.AddWithValue("@hospital", patients.Hospital);
+                cmd.Parameters.AddWithValue("@dob", patients.DateOfBirth);
+                cmd.Parameters.AddWithValue("@adress", patients.Address);// Assuming Id is the primary key
+                cmd.Parameters.AddWithValue("@emergencycontact", patients.EmergencyContact);
+                cmd.Parameters.AddWithValue("@medicalhistory", patients.MedicalHistory);
+                cmd.Parameters.AddWithValue("@bloodtype", patients.BloodType);
+                cmd.Parameters.AddWithValue("@allergies", patients.Allergies);
+                cmd.Parameters.AddWithValue("@Id", patients.PatientId);
+                conn.Open();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+        public Patient GetPatientById(int PatientId)
+        {
+            Patient patients = null;
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT * FROM patient WHERE patient_id = @id";
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", PatientId);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                patients = new Patient
+                                {
+                                    PatientId = Convert.ToInt32(reader["patient_id"].ToString()),
+                                    FullName = reader["fullname"].ToString(),
+                                    FatherName = reader["fathername"].ToString(),
+                                    BedNumber = reader["bednumber"].ToString(),
+                                    Phone = reader["phone"].ToString(),
+                                    City = reader["city"].ToString(),
+                                    Hospital = reader["hospital"].ToString(),
+                                    DateOfBirth = Convert.ToDateTime(reader["dob"].ToString()),
+                                    Address = reader["adress"].ToString(),
+                                    EmergencyContact = reader["emergencycontact"].ToString(),
+                                    MedicalHistory = reader["medicalhistory"].ToString(),
+                                    BloodType = reader["bloodtype"].ToString(),
+                                    Allergies = reader["allergies"].ToString(),
+
+                                };
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Handle exception
+            }
+            return patients;
+        }
+        #endregion---------Patient------------
     }
 }

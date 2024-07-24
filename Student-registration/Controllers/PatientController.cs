@@ -23,8 +23,8 @@ namespace Student_registration.Controllers
         [HttpPost]
         public IActionResult Patients(Patient patients)
         {
-            Generic pa = new Generic();
-            bool result = pa.InsertPatient(patients);
+            Generic generic = new Generic();
+            bool result = generic.InsertPatient(patients);
             if (result == true)
             {
                 ViewBag.meassage = "patients inserted successfuly!";
@@ -43,7 +43,41 @@ namespace Student_registration.Controllers
         [HttpGet]
         public IActionResult getpatient()
         {
-            var patients = GetPatients();
+            Generic patient = new Generic();//create generic object
+            var patients = patient.GetPatients();
+            return View(patients);//return view get patient
+        }
+        //Edit patient
+        [HttpGet]
+        public IActionResult EditPatient(int PatientId)
+        {
+            Generic obj = new Generic();
+            var patients= obj.GetPatientById(PatientId);
+            if (patients == null)
+            {
+                return NotFound();
+            }
+            return View(patients);
+
+        }
+        
+        [HttpPost]
+        public IActionResult EditPatient(Patient patients)
+        {
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
+                bool result = obj.UpdatePatient(patients);
+                if (result)
+                {
+                    TempData["updated"] = "Patient updated successfully!";
+                    return RedirectToAction("GetPatients");
+                }
+                else
+                {
+                    ViewBag.message = "Failed";
+                }
+            }
             return View(patients);
         }
 
@@ -54,50 +88,7 @@ namespace Student_registration.Controllers
 
 
 
-      
-        public List<Patient> GetPatients()
-        {
-            var patients = new List<Patient>();
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    string sqlQuery = "SELECT * FROM Patient";
-                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
-                    {
-                        connection.Open();
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                patients.Add(new Patient
-                                {
-                                    PatientId = reader["patient_id"].ToString(),
-                                    FullName = reader["fullname"].ToString(),
-                                    FatherName = reader["fathername"].ToString(),
-                                    BedNumber = reader["bednumber"].ToString(),
-                                    Phone = reader["phone"].ToString(),
-                                    City = reader["city"].ToString(),
-                                    Hospital = reader["hospital"].ToString(),
-                                    DateOfBirth = Convert.ToDateTime(reader["dob"]),
-                                    Address = reader["adress"].ToString(),
-                                    EmergencyContact = reader["emergencycontact"].ToString(),
-                                    MedicalHistory = reader["medicalhistory"].ToString(),
-                                    BloodType = reader["bloodtype"].ToString(),
-                                    Allergies = reader["allergies"].ToString()
-                                });
-                            }
-                        }
-                        connection.Close();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Handle exception
-            }
-            return patients;
-        }
+
 
 
 
