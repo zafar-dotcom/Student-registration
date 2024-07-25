@@ -20,35 +20,68 @@ namespace Student_registration.Controllers
     {
         return View();
     }
-    [HttpPost]
-    public IActionResult Students(StudentFoms students)
-    {
-        if (ModelState.IsValid)
+        [HttpPost]
+        public IActionResult Students(StudentFoms students)
         {
-                Generic  obj= new Generic();
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
 
                 bool result = obj.InsertStudent(students);
-            if (result)
-            {
-                ViewBag.Message = "Student inserted successfully!";
-                return View(students);
+                if (result)
+                {
+                    ViewBag.Message = "Student inserted successfully!";
+                    return View(students);
+                }
+                else
+                {
+                    ViewBag.Message = "Failed!";
+                    return View(students);
+                }
             }
-            else {
-                ViewBag.Message = "Failed!";
-                return View(students);
-            }
+
+            return View(students);
         }
 
-        return View(students);
-    }
-   
-    [HttpGet]
+        [HttpGet]
     public IActionResult GetStudents()
     {
             Generic genric = new Generic();
         var students = genric.Getstudent();
         return View(students);
     }
+        [HttpGet]
+        //EditStudent
+        public IActionResult EditStudent(int StudentID)
+        {
+            Generic obj = new Generic();
+            var Students = obj.GetStudentById(StudentID);
+            if (Students == null)
+            {
+                return NotFound();
+            }
+            return View(Students);
 
-  }
+        }
+
+        [HttpPost]
+        public IActionResult EditStudent(StudentFoms students)
+        {
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
+                bool result = obj.UpdateStudent(students);
+                if (result)
+                {
+                    TempData["updated"] = "Students updated successfully!";
+                    return RedirectToAction("GetStudents");//redirect mean to get updated list
+                }
+                else
+                {
+                    ViewBag.message = "Failed";
+                }
+            }
+            return View(students);
+        }
+    }
 }

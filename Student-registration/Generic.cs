@@ -64,7 +64,7 @@ namespace Student_registration
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string sqlQuery = "INSERT INTO Students (Fullname, Fathername, Email, Phone,Address,City,Rollnumber,Mrarks) " +
+                    string sqlQuery = "INSERT INTO Students (Fullname, Fathername, Email, Phone,  Address,City,Rollnumber,Mrarks) " +
                   "VALUES (@Fullname, @Fathername, @Email, @Phone,@Address,@City,@Rollnumber,@Mrarks)";
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
@@ -201,16 +201,16 @@ namespace Student_registration
                             {
                                 StudentFoms obj = new StudentFoms
                                 {
-                                    Fullname = reader["Fullname"].ToString(),
-                                    Fathername = reader["Fathername"].ToString(),
-                                    Email = reader["Email"].ToString(),
-                                    Phone = reader["Phone"].ToString(),
-                                    Address = reader["Address"].ToString(),
-                                    City = reader["City"].ToString(),
-                                    Rollno = reader["Rollnumber"].ToString(),
+                                    StudentId = Convert.ToInt32(reader["StudentID"].ToString()),
+                                    Fullname = reader["Fullname"] != DBNull.Value ? reader["Fullname"].ToString() : string.Empty,
+                                    Fathername = reader["Fathername"] != DBNull.Value ? reader["Fathername"].ToString() : string.Empty,
+                                    Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : string.Empty,
+                                    Phone = reader["Phone"] != DBNull.Value ? reader["Phone"].ToString() : string.Empty,
+                                    Address = reader["Address"] != DBNull.Value ? reader["Address"].ToString() : string.Empty,
+                                    City = reader["City"] != DBNull.Value ? reader["City"].ToString() : string.Empty,
+                                    Rollno = reader["Rollnumber"] != DBNull.Value ? reader["Rollnumber"].ToString() : string.Empty,
                                     Marks = reader["Mrarks"] != DBNull.Value && !string.IsNullOrWhiteSpace(reader["Mrarks"].ToString())
-                                            ? float.Parse(reader["Mrarks"].ToString())
-                                            : 0.0f // Default value if parsing fails
+                                            ? float.Parse(reader["Mrarks"].ToString()) : 0.0f, // Default value if parsing fails
                                 };
                                 students.Add(obj);
                             }
@@ -510,7 +510,7 @@ namespace Student_registration
 
         #endregion-----Doctor---------
         #region----------Edit patient---------
-        public bool UpdatePatient(Patient patients)
+        public bool UpdatePatient(Patient patients) // return type is bool - true or false
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -590,5 +590,80 @@ namespace Student_registration
             return patients;
         }
         #endregion---------Patient------------
+        #region------------Student-------------
+        public bool UpdateStudent(StudentFoms student) // return type is bool - true or false
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "UPDATE students SET Fullname =@Fullname, Fathername = @Fathername," +
+                    " Email = @Email, Phone = @Phone," +
+                    "Address = @Address,City =@City, Rollnumber=@Rollnumber,Mrarks = @Mrarks WHERE StudentID = @Id";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Fullname", student.Fullname);
+                cmd.Parameters.AddWithValue("@Fathername", student.Fathername);
+                cmd.Parameters.AddWithValue("@Email", student.Email);
+                cmd.Parameters.AddWithValue("@Phone", student.Phone);      
+                cmd.Parameters.AddWithValue("@Address", student.Address);
+                cmd.Parameters.AddWithValue("@City", student.City);
+                cmd.Parameters.AddWithValue("@Rollnumber", student.Rollno);// Assuming Id is the primary key
+                cmd.Parameters.AddWithValue("@Mrarks", student.Marks);
+                cmd.Parameters.AddWithValue("@Id", student.StudentId);
+                conn.Open();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+        public StudentFoms GetStudentById(int StudentID)
+        {
+            StudentFoms student = null;
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT * FROM Students WHERE StudentID = @id";
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", StudentID);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                student = new StudentFoms
+                                {
+                                    StudentId = Convert.ToInt32(reader["StudentID"]),
+                                    Fullname = reader["Fullname"].ToString(),
+                                    Fathername = reader["Fathername"].ToString(),
+                                    Email = reader["Email"].ToString(),
+                                    Phone = reader["Phone"].ToString(),
+                                    Address = reader["Address"] != DBNull.Value ? reader["Address"].ToString() : string.Empty,
+                                    City = reader["City"] != DBNull.Value ? reader["City"].ToString() : string.Empty,
+                                    Rollno = reader["Rollnumber"] != DBNull.Value ? reader["Rollnumber"].ToString() : string.Empty,
+                                    Marks = Convert.ToInt32(reader["Mrarks"]),
+                                };
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return student;
+        }
+        #endregion---------Student-------------
+
+    
     }
+
 }

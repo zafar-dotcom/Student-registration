@@ -1,8 +1,19 @@
 ﻿@model IEnumerable<Student_registration.Models.StudentFoms>
 @{
-    ViewData["Title"] = "Students";
+    ViewData["Title"] = "Student";
+}
+@if (TempData["updated"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["updated"]
+    </div>
 }
 
+<h2></h2>
+
+<p>
+    @Html.ActionLink("Create New Students", "Students", null, new { @class = "btn btn-primary" })
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -30,6 +41,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Marks)
             </th>
+         
             <th></th>
         </tr>
     </thead>
@@ -38,29 +50,32 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(a => item.Fullname)
+                    @Html.DisplayFor(modelItem => item.Fullname)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.Fathername)
+                    @Html.DisplayFor(modelItem => item.Fathername)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.Email)
+                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.Phone)
+                    @Html.DisplayFor(modelItem => item.Phone)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.City)
+                    @Html.DisplayFor(modelItem => item.Address)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.Rollno)
+                    @Html.DisplayFor(modelItem => item.City)
                 </td>
                 <td>
-                    @Html.DisplayFor(a => item.Marks)
+                    @Html.DisplayFor(modelItem => item.Rollno)
                 </td>
-                
-                
                 <td>
+                    @Html.DisplayFor(modelItem => item.Marks)
+                </td>
+               
+                <td>
+                    @Html.ActionLink("UPDATE", "EditStudent", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

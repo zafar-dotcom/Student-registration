@@ -2,6 +2,7 @@
 {
     public class StudentFoms
     {
+        public int StudentId { get; set; }
         public string Fullname { get; set; }
         public string Fathername { get; set; }
         public string Email { get; set; }
@@ -10,6 +11,7 @@
         public string City { get; set; }
         public string Rollno { get; set; }  
         public float Marks { get; set; } 
+       
     }
 
 }

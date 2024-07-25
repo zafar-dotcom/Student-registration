@@ -1,0 +1,69 @@
+﻿@model Student_registration.Models.StudentFoms
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<h1>Edit Student</h1>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <form asp-action="EditStudent">
+        <div class="form-group">
+            <label asp-for="Fullname"> Full Name</label>
+            <input type="text" asp-for="Fullname" name="FullName" class="form-control" />
+            <span asp-validation-for="Fullname" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Fathername"> Father Name</label>
+            <input type="text" asp-for="Fathername" name="FatherName" class="form-control" />
+            <span asp-validation-for="Fathername" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Email">  Email</label>
+            <input type="text" asp-for="Email" name="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone"> Phone</label>
+            <input type="text" asp-for="Phone" name="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Address"> Address</label>
+            <input type="text" asp-for="Address" name="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="City">City</label>
+            <input type="text" asp-for="City" name="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Rollno">Roll No</label>
+            <input type="text" asp-for="Rollno" name="Rollno" class="form-control" />
+            <span asp-validation-for="Rollno" class="text-danger"> </span>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Marks">Marks</label>
+            <input type="text" asp-for="Marks" name="Marks" class="form-control" />
+            <span asp-validation-for="Marks" class="text-danger"> </span>
+
+
+        </div>
+
+        <input type="hidden" asp-for="StudentId" />
+        <button type="submit"> Submit</button>
+    </form>
+
+</body>
+
+</html>
