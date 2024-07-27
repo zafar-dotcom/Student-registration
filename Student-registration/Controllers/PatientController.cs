@@ -78,27 +78,24 @@ namespace Student_registration.Controllers
             }
             return View(patients);
         }
+        //delete
+        [HttpGet]
+        public IActionResult Delete(int PatientId)
+        {
+            Generic dlt = new Generic();
+            bool result = dlt.DeletePatient(PatientId);
+            if (result)
+            {
+                TempData["Deleted"] = "Deleted sucessfully!";
+                return RedirectToAction("getpatient");
+            }
+            else
+            {
+                TempData["Deleted"] = "Deleted Failed!";
+                return RedirectToAction("getpatient");
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
     }
     }
 

@@ -663,7 +663,148 @@ namespace Student_registration
         }
         #endregion---------Student-------------
 
-    
+        #region----------Delete Teacher-----------
+          public int DeleteTeacher(int teachers) // return type is bool - true or false
+      
+        {
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+
+                    string query = "Delete from Teachers where TeacherId =@Id";// sql Querry
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", teachers);
+                    conn.Open();
+
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        
+        }
+
+        #endregion---------Delete----------
+        #region----------Delete student--------
+        public bool DeleteStudent(int students) // return type is bool - true or false
+
+        {
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+
+                    string query = "Delete from Students where StudentID =@Id";// sql Querry
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", students);
+                    conn.Open();
+
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        #endregion---------delete---------
+        #region----------delete patient-----
+        public bool DeletePatient(int patients) // return type is bool - true or false
+
+        {
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+
+                    string query = "Delete from Patient where patient_id =@Id";// sql Querry
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", patients);
+                    conn.Open();
+
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        #endregion----------delete---------- 
+        #region--------Delete Doctor-----------
+        public string DeleteDoctor(int DoctorId) // return type is bool - true or false
+
+        {
+            try
+            {
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+
+                    string query = "Delete from Doctor where TeacherId =@Id";// sql Querry
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", DoctorId);
+                    conn.Open();
+
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                    {
+                        return "Done";
+                    }
+                    else
+                    {
+                        return "no";
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        #endregion------delete----------
     }
 
 }

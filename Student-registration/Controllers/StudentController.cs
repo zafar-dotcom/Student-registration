@@ -83,5 +83,23 @@ namespace Student_registration.Controllers
             }
             return View(students);
         }
+        //delete
+        [HttpGet]
+        public IActionResult Delete(int StudentID)
+        {
+            Generic dlt = new Generic();
+            bool result = dlt.DeleteStudent(StudentID);
+            if (result)
+            {
+                TempData["Deleted"] = "Deleted sucessfully!";
+                return RedirectToAction("GetStudents");
+            }
+            else
+            {
+                TempData["Deleted"] = "Deleted Failed!";
+                return RedirectToAction("GetStudents");
+            }
+
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace Student_registration.Controllers
         [HttpGet]
         public IActionResult getteachers()
         {
-            Generic obj=new Generic();
+            Generic obj = new Generic();
             var teache = obj.Getteachers();
             return View(teache);
         }
@@ -80,6 +80,23 @@ namespace Student_registration.Controllers
                 }
             }
             return View(teacher);
+        }
+        //Delete
+        [HttpGet]
+        public IActionResult Delete(int teacherid) 
+        { Generic dlt = new Generic();
+            int result = dlt.DeleteTeacher(teacherid);
+            if (result ==1)
+            {
+                TempData["Deleted"] = "Deleted sucessfully!";
+                return RedirectToAction("getteachers");
+            }
+            else
+            {
+                TempData["Deleted"] = "Deleted Failed!";
+                return RedirectToAction("getteachers");
+            }
+            
         }
 
     }

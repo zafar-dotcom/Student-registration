@@ -3,9 +3,17 @@
     ViewData["Title"] = "teacher";
 }
 @if (TempData["updated"] != null)
+
 {
     <div class="alert alert-success">
         @TempData["updated"]
+    </div>
+}
+@if (TempData["Deleted"] != null)
+
+{
+    <div class="alert alert-success">
+        @TempData["Deleted"]
     </div>
 }
 <p>
@@ -53,7 +61,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("UPDATE", "Edit", new { teacherid = item.teacherid }) |
-
+                    @Html.ActionLink("Delete", "Delete", new { teacherid = item.teacherid }) |
 
                 </td>
             </tr>

@@ -8,6 +8,12 @@
         @TempData["updated"]
     </div>
 }
+@if (TempData["Deleted"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Deleted"]
+    </div>
+}
 
 <h2></h2>
 
@@ -76,6 +82,7 @@
                
                 <td>
                     @Html.ActionLink("UPDATE", "EditStudent", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
