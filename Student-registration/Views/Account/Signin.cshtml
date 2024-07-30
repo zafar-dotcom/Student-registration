@@ -1,0 +1,32 @@
+﻿@model Student_registration.Models.Signin
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<head>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<div class="form-container">
+    <h2 class="text-center">Sign In</h2>
+    <form asp-controller="Account" asp-action="Signin" method="post">
+        <div class="mb-3">
+            @* <label for="Email" class="form-label">Email</label> *@
+            <input type="email" class="form-control" id="Email" asp-for="Email" placeholder="Enter Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        
+        <div class="mb-3">
+            @* <label for="Password" class="form-label">Password</label> *@
+            <input type="password" class="form-control" id="Password" asp-for="Password" placeholder="Enter Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+    </form>
+    <form asp-controller="Account" asp-action="Rgister" method="get">
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Create new account</button>
+        </div>
+    </form>
+
+</div>

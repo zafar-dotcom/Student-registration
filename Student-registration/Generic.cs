@@ -1,6 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.X509;
 using Student_registration.Models;
 using System.Numerics;
+using System.Security.Cryptography;
+using System.Security.Policy;
 
 namespace Student_registration
 {
@@ -181,6 +184,77 @@ namespace Student_registration
                 throw;
             }
         }
+        public bool Register(Rgistermodel models)
+        {
+           try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "INSERT INTO users (firstname , lastname, password,email,phone,gender) " +
+                    "VALUES (@firstname, @lastname,@password,@email,@phone,@gender)";
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@firstname", models.FirstName);
+                        command.Parameters.AddWithValue("@lastname", models.LastName);
+                        command.Parameters.AddWithValue("@password", models.Password);
+                        command.Parameters.AddWithValue("@email", models.Email);
+                        command.Parameters.AddWithValue("@phone", models.Phone);
+                        command.Parameters.AddWithValue("@gender", models.Gender);
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        connection.Close();
+
+                        if (rowsAffected > 0)
+                        {
+                            return true; // Replace with appropriate action and controller
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        public int UserAlreadyExit(string Email)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT COUNT(*) FROM users WHERE email =@Email";
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Email",Email);
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        connection.Close();
+
+                        if (count > 0)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+            
+          
         #endregion ---------- Create -----------------
 
         #region -----------------Read ----------------
@@ -595,7 +669,7 @@ namespace Student_registration
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                string query = "UPDATE students SET Fullname =@Fullname, Fathername = @Fathername," +
+                string query  = "UPDATE students SET Fullname =@Fullname, Fathername = @Fathername," +
                     " Email = @Email, Phone = @Phone," +
                     "Address = @Address,City =@City, Rollnumber=@Rollnumber,Mrarks = @Mrarks WHERE StudentID = @Id";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -805,6 +879,9 @@ namespace Student_registration
 
         }
         #endregion------delete----------
+      
+
+       
     }
 
 }

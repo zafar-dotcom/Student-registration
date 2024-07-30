@@ -1,4 +1,64 @@
-﻿body {
+﻿/* wwwroot/css/site.css */
+/* wwwroot/css/styles.css */
+
+.form-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .form-container .form-control {
+        border-radius: 5px;
+        margin-left: 60px;
+       
+    }
+
+    .form-container .btn {
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 8px 16px; /* Adjust padding to reduce size */
+        font-size: 0.875rem; /* Adjust font size to fit new button size */
+        width: auto; /* Let button width adjust to its content */
+        display: inline-block; /* Ensure button does not stretch full width */
+        margin-left: 60px;
+    }
+
+    .form-container .btn-primary {
+        padding: 8px 16px; /* Adjust padding for primary button */
+        font-size: 0.875rem; /* Ensure font size is appropriate */
+        margin-top:2px;
+    }
+    /* wwwroot/css/styles.css */
+
+    /* Adjusted button styles */
+    .form-container .btn-secondary {
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 8px 16px; /* Adjust padding to reduce size */
+        font-size: 0.875rem; /* Adjust font size to fit new button size */
+        width: auto; /* Let button width adjust to its content */
+        display: inline-block; /* Ensure button does not stretch full width */
+        margin-top: 6px; /* Add margin to separate from other elements */
+    }
+
+
+    .form-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-container .text-danger {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.875em;
+    }
+
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
