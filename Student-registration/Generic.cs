@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.X509;
 using Student_registration.Models;
+using System.Data;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Security.Policy;
@@ -286,12 +287,47 @@ namespace Student_registration
                 throw;
             }
         }
-        
+       
 
-        #endregion ---------- Create -----------------
+        public int UserExistOrNot(Signin modl)
+    {
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string sqlQuery = "SELECT * FROM users WHERE email = @Email AND password = @Password";
 
-        #region -----------------Read ----------------
-        public List<StudentFoms> Getstudent()
+                using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", modl.Email);
+                    command.Parameters.AddWithValue("@Password", modl.Password);
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        adapter.Fill(dataTable);
+
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+
+    #endregion ---------- Create -----------------
+
+    #region -----------------Read ----------------
+    public List<StudentFoms> Getstudent()
         {
             List<StudentFoms> students = new List<StudentFoms>();
             try

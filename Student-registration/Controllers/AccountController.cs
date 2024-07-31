@@ -19,8 +19,9 @@ namespace Student_registration.Controllers
         {
             if (ModelState.IsValid)
             {
-                Generic obj = new Generic();
-                int userexistresult = obj.userexistornot(modl);
+                Generic obj = new Generic();//create generic obj
+                int userexistresult = obj.UserExistOrNot(modl);
+                
                 if (userexistresult == 1)
                 {
                     return RedirectToAction("Index", "Home");
