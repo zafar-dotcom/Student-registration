@@ -253,8 +253,41 @@ namespace Student_registration
                 throw;
             }
         }
-            
-          
+        public int userexistornot(Signin modl)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    string sqlQuery = "SELECT COUNT(*) FROM users WHERE email =@email and password =  @password";
+                    
+                    using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Email", modl.Email);
+                        command.Parameters.AddWithValue("@password", modl.Password);
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        connection.Close();
+
+                        if (count > 0)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        
+
         #endregion ---------- Create -----------------
 
         #region -----------------Read ----------------

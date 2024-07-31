@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Student_registration.Models;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Student_registration.Controllers
@@ -16,10 +17,28 @@ namespace Student_registration.Controllers
         [HttpPost]
         public IActionResult Signin(Signin modl)
         {
-            ModelState.AddModelError("Password", "Invaild username or password");
-            return View(modl);
-            //return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
+                int userexistresult = obj.userexistornot(modl);
+                if (userexistresult == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                    
+                }
+                else
+                {
+                    
+                    ModelState.AddModelError("Password", " username or Pssword is not correct ");
+                    return View(modl);
+                }
 
+                
+
+                
+            }
+            return View(modl);
+           
 
         }
         [HttpGet]
@@ -34,6 +53,7 @@ namespace Student_registration.Controllers
             {
                 Generic obj = new Generic(); // Create generic object
                 int userExistsResult = obj.UserAlreadyExit(models.Email);
+                //int Useralreadyexit = obj.Useralreadyexit(models.Password);
                
                 
 
@@ -56,7 +76,13 @@ namespace Student_registration.Controllers
                 {
                     ModelState.AddModelError("Email", " Email already exists");
                     return View(models);
+                    
+
                 }
+                
+                
+                
+           
             }
 
             return View(models);
