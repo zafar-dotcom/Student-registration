@@ -1,24 +1,29 @@
-﻿@model Student_registration.Models.Doctors;
+﻿@model Student_registration.Models.Doctors
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration Form</title>
+    <title>Doctor Registration Form</title>
     <link href="~/css/styles.css" rel="stylesheet" />
+
 </head>
-<html>
 <body>
+
     <div class="container">
-        <h2> Doctor refistration form    </h2>
+    
+
+    <h2>Doctor Registration Form</h2>
         @if (!string.IsNullOrEmpty(ViewBag.meassage))
         {
             <div class="alert alert-success">
                 @ViewBag.meassage
             </div>
         }
-        <form action="Doctors" method="post">
+        <form asp-action="Doctors" method="post">
+            <div class="row">
+                <div class="col-6">
                <div class="form-group">
                 <label for="fullname">FullName </label>
                 <input type="text" id="fullname" name="fullname" asp-for="FullName" required>
@@ -39,6 +44,9 @@
                 <input type="text" id="ciy" name="city" asp-for="City">
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
+
+            </div>
+            <div class="col-6">
             <div class="form-group">
                 <label for="phone">Phone</label>
                 <input type="text" id="phon" name="phone" asp-for="Phone">
@@ -59,7 +67,8 @@
                 <input type="text" id="host" name="hospitalname" asp-for="Hospitalname">
                 <span asp-validation-for="Hospitalname" class="text-danger"></span>
             </div>
-
+            </div>
+            </div>
             <button type="submit">Submit</button>
         </form>
 

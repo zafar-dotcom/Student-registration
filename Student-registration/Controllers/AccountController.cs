@@ -10,7 +10,7 @@ namespace Student_registration.Controllers
     {
         
         [HttpGet]
-        public IActionResult Signin()
+       public IActionResult Signin()
         {
             return View();
         }
@@ -52,16 +52,19 @@ namespace Student_registration.Controllers
         {
             if (ModelState.IsValid)
             {
+            var encryptedpassword = common.Security.Hash(models.Password);
+                
+
+
                 Generic obj = new Generic(); // Create generic object
+               
                 int userExistsResult = obj.UserAlreadyExit(models.Email);
                 //int Useralreadyexit = obj.Useralreadyexit(models.Password);
-               
-                
 
                 if (userExistsResult == 0)
 
                 {
-                    bool registrationResult = obj.Register(models);
+                    bool registrationResult = obj.Register(models, encryptedpassword);
                     if (registrationResult)
                     {
                         ViewBag.Message = "Account Registered successfully!";

@@ -29,7 +29,7 @@ namespace Student_registration.Controllers
                 bool result = generic.InsertStudent(doctors);    //
                 if (result == true)
                 {
-                    ViewBag.meassage = "doctors inserted successfuly!";
+                    ViewBag.meassage = "doctors inserted successfuly";
                     return View(doctors);
 
                 }

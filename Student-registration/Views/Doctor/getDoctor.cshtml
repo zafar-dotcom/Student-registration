@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Doctors";
 }
+<head>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
 @if (TempData["updated"] != null)
 {
     <div class="alert alert-success">
@@ -14,80 +17,47 @@
         @TempData["Deleted"]
     </div>
 }
+<body>
+<div class="table-container">
+<h2>Doctors</h2>
 
-<h2>Teachers</h2>
-
-<p>
+<p style="margin-left:55px;">
     @Html.ActionLink("Create New Doctor", "Doctor", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FatherName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hospitalname)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(a => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.FatherName)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Adress)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Country)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Hospitalname)
-                </td>
-                <td>
-                    @Html.ActionLink("UPDATE", "EditDoctor", new { DoctorId = item.DoctorId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { DoctorId = item.DoctorId }, new { @class = "btn btn-primary" })
-
-                   
-
-                </td>
-              
+                <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                <th>@Html.DisplayNameFor(model => model.FatherName)</th>
+                <th>@Html.DisplayNameFor(model => model.Adress)</th>
+                <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.Hospitalname)</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(a => item.FullName)</td>
+                    <td>@Html.DisplayFor(a => item.FatherName)</td>
+                    <td>@Html.DisplayFor(a => item.Adress)</td>
+                    <td>@Html.DisplayFor(a => item.Phone)</td>
+                    <td>@Html.DisplayFor(a => item.Email)</td>
+                    <td>@Html.DisplayFor(a => item.Hospitalname)</td>
+                        <td>
+                            <div class="action-links">
+                                @Html.ActionLink("Update", "EditDoctor", new { DoctorId = item.DoctorId }, new { @class = "btn btn-primary" })
+                                <span class="separator">|</span>
+                                @Html.ActionLink("Delete", "Delete", new { DoctorId = item.DoctorId }, new { @class = "bttnn btn-primary" })
+                            </div>
+                        </td>
 
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+
+    </body>

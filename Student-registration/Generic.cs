@@ -116,7 +116,7 @@ namespace Student_registration
                         command.Parameters.AddWithValue("@FatherName", teachers.FatherName);
                         command.Parameters.AddWithValue("@Email", teachers.Email);
                         command.Parameters.AddWithValue("@Phone", teachers.Phone);
-                        command.Parameters.AddWithValue("@Dob", teachers.Dob);
+                        command.Parameters.AddWithValue("@dob", teachers.Dob);
 
 
                         connection.Open();
@@ -185,7 +185,7 @@ namespace Student_registration
                 throw;
             }
         }
-        public bool Register(Rgistermodel models)
+        public bool Register(Rgistermodel models,string Hashpassword)
         {
            try
             {
@@ -197,7 +197,7 @@ namespace Student_registration
                     {
                         command.Parameters.AddWithValue("@firstname", models.FirstName);
                         command.Parameters.AddWithValue("@lastname", models.LastName);
-                        command.Parameters.AddWithValue("@password", models.Password);
+                        command.Parameters.AddWithValue("@password",Hashpassword);
                         command.Parameters.AddWithValue("@email", models.Email);
                         command.Parameters.AddWithValue("@phone", models.Phone);
                         command.Parameters.AddWithValue("@gender", models.Gender);
@@ -223,6 +223,7 @@ namespace Student_registration
                 throw;
             }
         }
+        
         public int UserAlreadyExit(string Email)
         {
             try
@@ -295,20 +296,27 @@ namespace Student_registration
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string sqlQuery = "SELECT * FROM users WHERE email = @Email AND password = @Password";
+                string sqlQuery = "SELECT * FROM users WHERE email = @Email";
 
                 using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Email", modl.Email);
-                    command.Parameters.AddWithValue("@Password", modl.Password);
+                   
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
                         DataTable dataTable = new DataTable();
                         adapter.Fill(dataTable);
 
-                        if (dataTable.Rows.Count > 0)
-                        {
-                            return 1;
+                            if (dataTable.Rows.Count > 0)
+                            {
+                                if (common.Security.Verify(modl.Password, dataTable.Rows[0]["password"].ToString()))
+                                    {
+                                    return 1;
+                                 }
+                                else
+                                {
+                                    return 0;
+                                }
                         }
                         else
                         {
@@ -431,6 +439,7 @@ namespace Student_registration
                                     FatherName = reader["FatherName"].ToString(),
                                     Email = reader["Email"].ToString(),
                                     Phone = reader["Phone"].ToString(),
+                                    Dob = Convert.ToDateTime(reader["dob"]),
 
                                 };
                                 teachers.Add(obj);
@@ -546,7 +555,7 @@ namespace Student_registration
                 cmd.Parameters.AddWithValue("@FatherName", teacher.FatherName);
                 cmd.Parameters.AddWithValue("@Email", teacher.Email);
                 cmd.Parameters.AddWithValue("@Phone", teacher.Phone);
-                cmd.Parameters.AddWithValue("@Dob", teacher.Dob);
+                cmd.Parameters.AddWithValue("@dob", teacher.Dob);
                 cmd.Parameters.AddWithValue("@Id", teacher.teacherid); // Assuming Id is the primary key
 
                 conn.Open();
@@ -576,7 +585,7 @@ namespace Student_registration
                         FatherName = reader["FatherName"].ToString(),
                         Email = reader["Email"].ToString(),
                         Phone = reader["Phone"].ToString(),
-                        Dob = reader.GetDateTime(reader.GetOrdinal("Dob"))
+                        Dob = Convert.ToDateTime(reader["dob"].ToString()),
                     };
                 }
             }

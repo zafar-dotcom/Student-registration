@@ -97,10 +97,9 @@ h2 {
 
     .form-group label {
         display: block;
-        margin-bottom: 5px;
         font-weight: bold;
-        font-size : 14px;
-        color :black
+        font-size: 14px;
+        color: black
     }
 
     .form-group input {
@@ -109,7 +108,6 @@ h2 {
         border: 1px solid #ccc;
         border-radius: 5px;
         box-sizing: border-box;
-       
     }
 
 button[type="submit"] {
@@ -151,3 +149,56 @@ button[type="submit"] {
         max-width: 100%;
     }
 }
+
+.custom-logout-btn {
+    background-color: aqua;
+    color: white;
+    border: 2px solid black;
+    padding :1px;
+}
+.table-container .table {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    border-collapse: separate; /* Allow space between cells */
+    border-spacing: 0 10px; /* Space between rows */
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    padding: 10px; /* Space inside cells */
+}
+
+.table th {
+    background-color: lightskyblue;
+    color: black;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: bisque;
+}
+
+.bttnn {
+    margin-right: 5px;
+}
+
+.table td .action-links {
+    display: flex;
+    gap: 5px; /* Space between links */
+}
+
+    .table td .action-links a {
+        display: inline-block;
+        margin-right: 5px; /* Optional: space between buttons */
+    }
