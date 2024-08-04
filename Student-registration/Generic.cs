@@ -439,7 +439,7 @@ namespace Student_registration
                                     FatherName = reader["FatherName"].ToString(),
                                     Email = reader["Email"].ToString(),
                                     Phone = reader["Phone"].ToString(),
-                                    Dob = Convert.ToDateTime(reader["dob"]),
+                                    
 
                                 };
                                 teachers.Add(obj);

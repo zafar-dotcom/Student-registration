@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Student";
 }
+<head>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
 @if (TempData["updated"] != null)
 {
     <div class="alert alert-success">
@@ -14,13 +17,14 @@
         @TempData["Deleted"]
     </div>
 }
+<body>
+    <div class="table-container">
+<h2> Student</h2>
 
-<h2></h2>
-
-<p>
+        <p style="margin-left:55px;">
     @Html.ActionLink("Create New Students", "Students", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>
@@ -81,10 +85,14 @@
                 </td>
                
                 <td>
-                    @Html.ActionLink("UPDATE", "EditStudent", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
+                            <div class="action-links">
+                                @Html.ActionLink("UPDATE", "EditPatient", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Delete", "Delete", new { StudentID = item.StudentId }, new { @class = "btn btn-primary" })
+                            </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+</div>
+</body>

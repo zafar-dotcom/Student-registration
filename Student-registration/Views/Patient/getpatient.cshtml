@@ -17,7 +17,8 @@
         @TempData["Deleted"]
     </div>
 }
-
+<body>
+    <div class="table-container">
 <h2>Patient</h2>
 
 <p style="margin-left:55px;">
@@ -106,10 +107,15 @@
                     @Html.DisplayFor(modelItem => item.Allergies)
                 </td>
                 <td>
-                    @Html.ActionLink("UPDATE", "EditPatient", new { PatientId = item.PatientId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { PatientId = item.PatientId }, new { @class = "btn btn-primary" })
+                            <div class="action-links">
+                                @Html.ActionLink("UPDATE", "EditPatient", new { PatientId = item.PatientId }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Delete", "Delete", new { PatientId = item.PatientId }, new { @class = "btn btn-primary" })
+                            </div>s
                 </td>
             </tr>
         }
     </tbody>
 </table>
+    </div>
+</body>
+
