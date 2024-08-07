@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Mysqlx.Session;
 using Student_registration.Models;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
@@ -6,93 +7,111 @@ using System.Reflection.Metadata.Ecma335;
 namespace Student_registration.Controllers
 {
     public class AccountController : Controller
-
     {
-        
         [HttpGet]
-       public IActionResult Signin()
+        public IActionResult Signin()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Signin(Signin modl)
+        public IActionResult Signin(Signin model)
         {
             if (ModelState.IsValid)
             {
-                Generic obj = new Generic();//create generic obj
-                int userexistresult = obj.UserExistOrNot(modl);
-                
-                if (userexistresult == 1)
+                Generic obj = new Generic();
+                int userExistResult = obj.UserExistOrNot(model);
+
+                if (userExistResult == 1)
                 {
                     return RedirectToAction("Index", "Home");
-                    
                 }
                 else
                 {
-                    
-                    ModelState.AddModelError("Password", " username or Pssword is not correct ");
-                    return View(modl);
+                    ModelState.AddModelError("Password", "Username or Password is not correct");
+                    return View(model);
                 }
-
-                
-
-                
             }
-            return View(modl);
-           
-
+            return View(model);
         }
+
         [HttpGet]
-        public IActionResult Rgister()
+        public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Rgister(Rgistermodel models)
+        public IActionResult Register(Rgistermodel model)
         {
             if (ModelState.IsValid)
             {
-            var encryptedpassword = common.Security.Hash(models.Password);
-                
+                var encryptedPassword = common.Security.Hash(model.Password);
+                Generic obj = new Generic();
 
-
-                Generic obj = new Generic(); // Create generic object
-               
-                int userExistsResult = obj.UserAlreadyExit(models.Email);
-                //int Useralreadyexit = obj.Useralreadyexit(models.Password);
+                int userExistsResult = obj.UserAlreadyExit(model.Email);
 
                 if (userExistsResult == 0)
-
                 {
-                    bool registrationResult = obj.Register(models, encryptedpassword);
+                    bool registrationResult = obj.Register(model, encryptedPassword);
                     if (registrationResult)
                     {
                         ViewBag.Message = "Account Registered successfully!";
-                        return View(models);
+                        return View(model);
                     }
                     else
                     {
                         ViewBag.Message = "Failed!";
-                        return View(models);
+                        return View(model);
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", " Email already exists");
-                    return View(models);
-                    
-
+                    ModelState.AddModelError("Email", "Email already exists");
+                    return View(model);
                 }
-                
-                
-                
-           
             }
-
-            return View(models);
+            return View(model);
         }
 
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task <IActionResult> ForgotPassword(ForgotPassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
+                bool userExists = obj.UserAlreadyExit(model.Email) > 0;
 
+                if (userExists)
+                {
+                    
+                   string From = "mohammadzafarft12555@gmail.com";
+                   string Password = "fintechtik@2024";
+                   string SMTPPort = "587";
+                   string Host = "smtp.gmail.com";
+                    string subject = "Reset password";
+                    string body = "Test body";
+                    string To =model.Email;
+                    //EmailManager objs=new EmailManager();
+                    EmailManager.SendEmail(From, subject, body, From, Password, To, SMTPPort, Host);
+                    //EmailManager.SendEmailAsync(From, subject, body, To, SMTPPort, Host);
+                    //EmailManager.SendEmail(UserID, subject, body, To, UserID, Password, SMTPPort, Host);
+                    ViewBag.Message = "Password reset link has been sent to your email.";
+                    return View();
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Email does not exist");
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
     }
 }
