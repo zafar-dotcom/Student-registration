@@ -91,15 +91,17 @@ namespace Student_registration.Controllers
                 if (userExists)
                 {
                     
-                   string From = "mohammadzafarft12555@gmail.com";
-                   string Password = "fintechtik@2024";
+                   string userid = "mohammadzafar12555@gmail.com";
+                   string Password = "exmu rkcj pxor yupo";
                    string SMTPPort = "587";
                    string Host = "smtp.gmail.com";
                     string subject = "Reset password";
-                    string body = "Test body";
+                    var lnkHref = "<a href='" + Url.Action("ResetPassword", "ForgtPassword", new { email = "test", code = "test" }, "https") + "'>Reset Password</a>";
+
+                    string body = lnkHref;
                     string To =model.Email;
                     //EmailManager objs=new EmailManager();
-                    EmailManager.SendEmail(From, subject, body, From, Password, To, SMTPPort, Host);
+                    EmailManager.SendEmail(userid, subject, body, To, Password, userid, SMTPPort, Host);
                     //EmailManager.SendEmailAsync(From, subject, body, To, SMTPPort, Host);
                     //EmailManager.SendEmail(UserID, subject, body, To, UserID, Password, SMTPPort, Host);
                     ViewBag.Message = "Password reset link has been sent to your email.";

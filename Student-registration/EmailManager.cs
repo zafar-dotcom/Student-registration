@@ -8,40 +8,38 @@ namespace Student_registration
 {
     public class EmailManager
     {
-        public static void AppSettings(out string UserID, out string Password, out string SMTPPort, out string Host)
-        {
-            UserID = "mohammadzafarft12555@gmail.com";
-            Password = "fintechtik@gmail.com";
-            SMTPPort = "587";
-            Host = "smtp.gmail.com";
-        }
+
         public static void SendEmail(string From, string Subject, string Body, string To, string Password, string UserID, string SMTPPort, string Host)
         {
             try
             {
-                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                mail.To.Add(To);
+                MailMessage mail = new MailMessage();
                 mail.From = new MailAddress(From);
+                mail.Sender = new MailAddress(From);
+                mail.To.Add(To);
+                mail.IsBodyHtml = true;
                 mail.Subject = Subject;
                 mail.Body = Body;
-                mail.IsBodyHtml = true; // Optional: set to true if sending HTML email
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = Host;
-                smtp.Port = Convert.ToInt16(SMTPPort);
-                smtp.Credentials = new System.Net.NetworkCredential(UserID, Password);
+                SmtpClient smtp = new SmtpClient(Host, int.Parse(SMTPPort));
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(From, Password);
                 smtp.EnableSsl = true;
+
                 smtp.Send(mail);
             }
             catch (System.Net.Mail.SmtpException ex)
             {
                 // Handle SMTP exception
                 Console.WriteLine($"SMTP Exception: {ex.Message}");
+                throw; // Re-throw to see the full error and stack trace
             }
             catch (Exception ex)
             {
                 // Handle general exception
                 Console.WriteLine($"Exception: {ex.Message}");
+                throw;
             }
         }
         public async Task SendEmailAsync(string From, string Subject, string Body, string To, int SMTPPort, string Host)
@@ -49,11 +47,11 @@ namespace Student_registration
             var smtpClient = new SmtpClient(Host)
             {
                 Port = SMTPPort,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = true,
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential("", ""),// No authentication
-                EnableSsl = true
-                
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+
 
             };
             bool isBodyHtml = IsHtml(Body);
@@ -82,6 +80,13 @@ namespace Student_registration
             string htmlPattern = @"<[^>]+>";
             return Regex.IsMatch(input, htmlPattern);
         }
+
+
+
+
+
+       
+
     }
 }
 
