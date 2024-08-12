@@ -3,6 +3,8 @@ using Mysqlx.Session;
 using Student_registration.Models;
 using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Student_registration.Controllers
 {
@@ -36,27 +38,26 @@ namespace Student_registration.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Rgister()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(Rgistermodel model)
+        public IActionResult Rgister(Rgistermodel model)
         {
             if (ModelState.IsValid)
             {
                 var encryptedPassword = common.Security.Hash(model.Password);
                 Generic obj = new Generic();
-
                 int userExistsResult = obj.UserAlreadyExit(model.Email);
 
                 if (userExistsResult == 0)
                 {
-                    bool registrationResult = obj.Register(model, encryptedPassword);
-                    if (registrationResult)
+                    bool rgistrationResult = obj.Rgister(model, encryptedPassword);
+                    if (rgistrationResult)
                     {
-                        ViewBag.Message = "Account Registered successfully!";
+                        ViewBag.Message = "Account Rgistered successfully!";
                         return View(model);
                     }
                     else
@@ -96,10 +97,11 @@ namespace Student_registration.Controllers
                    string SMTPPort = "587";
                    string Host = "smtp.gmail.com";
                     string subject = "Reset password";
-                    var lnkHref = "<a href='" + Url.Action("ResetPassword", "ForgtPassword", new { email = "test", code = "test" }, "https") + "'>Reset Password</a>";
-
-                    string body = lnkHref;
+                    string encryptedemail = common.Security.Encrypt(model.Email);
+                    var body = "<a href='" + Url.Action("ResetPassword", "Account", new { email = encryptedemail }, "https") + "'>Reset Password</a>";
+                   
                     string To =model.Email;
+                   
                     //EmailManager objs=new EmailManager();
                     EmailManager.SendEmail(userid, subject, body, To, Password, userid, SMTPPort, Host);
                     //EmailManager.SendEmailAsync(From, subject, body, To, SMTPPort, Host);
@@ -115,5 +117,59 @@ namespace Student_registration.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult testaction()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult testaction( string email)
+        {
+            string encryptedemail = common.Security.Encrypt(email);
+            string Decrypt= common.Security.Decrypt(encryptedemail);
+            if (encryptedemail == null)
+            {
+                ViewBag.Message = "Encrypted Email successfully!";
+                return View(email);
+            }
+            else
+            {
+                ViewBag.Message = "Encrypted Email not successfully";
+                return View(email);
+            }
+
+           
+        }
+        [HttpGet]
+        public IActionResult ResetPassword( string email)
+        {
+            string Decrypt = common.Security.Decrypt(email);
+           
+        return View();
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(string email , string Password,string Confirmpassword)
+        {
+            Generic obj = new Generic();
+            int userExistsResult = obj.UserAlreadyExit(email);
+            if (userExistsResult == 1)
+            {
+
+
+            }
+            else
+            {
+
+            }
+            return View();
+        }
+
+
+
+
+
+
+
     }
 }

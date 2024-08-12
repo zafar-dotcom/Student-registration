@@ -185,7 +185,7 @@ namespace Student_registration
                 throw;
             }
         }
-        public bool Register(Rgistermodel models,string Hashpassword)
+        public bool Rgister(Rgistermodel models,string Hashpassword)
         {
            try
             {

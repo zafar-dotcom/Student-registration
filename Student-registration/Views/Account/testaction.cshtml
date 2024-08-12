@@ -1,0 +1,54 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Registration Form</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+    
+
+    <h2>Account Registration Form</h2>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+        <form asp-action="testaction" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="FirstName">First Name:</label>
+                        <input type="text" id="FirstName" name="FirstName"  required>
+                     
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName">Last Name:</label>
+                        <input type="text" id="LastName" name="LastName" required>
+                       
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="email" id="Email" name="Email"  required>
+                       
+                    </div>
+                </div>
+              
+            </div>
+            <button type="submit">Create new account</button>
+        </form>
+             <!-- Login Button -->
+        
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
