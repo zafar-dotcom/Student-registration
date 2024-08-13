@@ -224,7 +224,7 @@ namespace Student_registration
             }
         }
         
-        public int UserAlreadyExit(string Email)
+        public int UserAlreadyExit(string email)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace Student_registration
                     string sqlQuery = "SELECT COUNT(*) FROM users WHERE email =@Email";
                     using (MySqlCommand command = new MySqlCommand(sqlQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@Email",Email);
+                        command.Parameters.AddWithValue("@Email", email);
                         connection.Open();
                         int count = Convert.ToInt32(command.ExecuteScalar());
                         connection.Close();
@@ -564,7 +564,7 @@ namespace Student_registration
                 return result > 0;
             }
         }
-
+       
         public teachermodel GetTeacherById(int id)
         {
             teachermodel teacher = null;
@@ -594,7 +594,26 @@ namespace Student_registration
             return teacher;
         }
 
+
         #endregion --------- Edit --------
+        #region-------------edit password---------
+        public bool Updatepassword(string email, string password)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                string query = "UPDATE users SET password = @password WHERE email = @email";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                conn.Close();
+
+                return rowsAffected > 0;
+            }
+        }
+
+        #endregion----------edit--------
 
         #region-------------Edit Doctor------
         public bool UpdateDoctor(Doctors doctors)

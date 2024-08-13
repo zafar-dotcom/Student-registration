@@ -84,13 +84,6 @@ namespace Student_registration.Controllers
         [HttpPost]
         public async Task <IActionResult> ForgotPassword(ForgotPassword model)
         {
-            if (ModelState.IsValid)
-            {
-                Generic obj = new Generic();
-                bool userExists = obj.UserAlreadyExit(model.Email) > 0;
-
-                if (userExists)
-                {
                     
                    string userid = "mohammadzafar12555@gmail.com";
                    string Password = "exmu rkcj pxor yupo";
@@ -99,23 +92,13 @@ namespace Student_registration.Controllers
                     string subject = "Reset password";
                     string encryptedemail = common.Security.Encrypt(model.Email);
                     var body = "<a href='" + Url.Action("ResetPassword", "Account", new { email = encryptedemail }, "https") + "'>Reset Password</a>";
-                   
                     string To =model.Email;
-                   
                     //EmailManager objs=new EmailManager();
                     EmailManager.SendEmail(userid, subject, body, To, Password, userid, SMTPPort, Host);
                     //EmailManager.SendEmailAsync(From, subject, body, To, SMTPPort, Host);
                     //EmailManager.SendEmail(UserID, subject, body, To, UserID, Password, SMTPPort, Host);
                     ViewBag.Message = "Password reset link has been sent to your email.";
                     return View();
-                }
-                else
-                {
-                    ModelState.AddModelError("Email", "Email does not exist");
-                    return View(model);
-                }
-            }
-            return View(model);
         }
         [HttpGet]
         public IActionResult testaction()
@@ -142,33 +125,43 @@ namespace Student_registration.Controllers
            
         }
         [HttpGet]
-        public IActionResult ResetPassword( string email)
+        public IActionResult ResetPassword(string email)
         {
             string Decrypt = common.Security.Decrypt(email);
-           
-        return View();
-        }
-        [HttpPost]
-        public IActionResult ResetPassword(string email , string Password,string Confirmpassword)
-        {
+            ViewBag.Email = Decrypt; 
+
             Generic obj = new Generic();
-            int userExistsResult = obj.UserAlreadyExit(email);
+            int userExistsResult = obj.UserAlreadyExit(Decrypt);
             if (userExistsResult == 1)
             {
-
-
+                return View();
             }
             else
             {
-
+                return View();
             }
-            return View();
         }
 
 
+        [HttpPost]
+        public IActionResult ResetPassword(string email, string Password)
+        {
+            if (ModelState.IsValid)
+            {
+                Generic obj = new Generic();
+                bool result = obj.Updatepassword(email, Password);
 
-
-
+                if (result)
+                {
+                    TempData["updated"] = "Password update successfully ";
+                }
+                else
+                {
+                    ViewBag.Message = "Failed to update the password.";
+                }
+            }
+            return View();
+        }
 
 
     }
