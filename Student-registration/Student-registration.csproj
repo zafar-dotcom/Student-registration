@@ -8,7 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Account\resetpasswordview.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Account\resetpasswordview.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Account\resetpasswordview.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Account\resetpasswordview.cshtml" />
   </ItemGroup>
 
 </Project>

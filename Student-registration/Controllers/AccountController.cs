@@ -154,7 +154,8 @@ namespace Student_registration.Controllers
 
                 if (result)
                 {
-                    TempData["updated"] = "Password update successfully ";
+                    return RedirectToAction("resetview");
+
                 }
                 else
                 {
@@ -164,7 +165,12 @@ namespace Student_registration.Controllers
             return View();
         }
 
-     
+        public IActionResult resetview()
+        {
+            return View();
+        }
+
+
 
     }
 }
