@@ -224,6 +224,8 @@ namespace Student_registration
             }
         }
         
+        
+
         public int UserAlreadyExit(string email)
         {
             try

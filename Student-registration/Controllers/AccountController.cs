@@ -148,8 +148,9 @@ namespace Student_registration.Controllers
         {
             if (ModelState.IsValid)
             {
+                var encryptedPassword = common.Security.Hash(Password);
                 Generic obj = new Generic();
-                bool result = obj.Updatepassword(email, Password);
+                bool result = obj.Updatepassword(email, encryptedPassword);
 
                 if (result)
                 {
@@ -163,6 +164,8 @@ namespace Student_registration.Controllers
             return View();
         }
 
+     
 
     }
 }
+
