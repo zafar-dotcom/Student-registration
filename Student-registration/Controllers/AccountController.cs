@@ -144,8 +144,14 @@ namespace Student_registration.Controllers
 
 
         [HttpPost]
-        public IActionResult ResetPassword(string email, string Password)
+        public IActionResult ResetPassword(string email, string Password,string confirmpassword)
         {
+            if (Password != confirmpassword)
+            {
+                ViewBag.Message = "Passwords do not match.";
+                return View();
+            }
+
             if (ModelState.IsValid)
             {
                 var encryptedPassword = common.Security.Hash(Password);
@@ -159,11 +165,12 @@ namespace Student_registration.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = "Failed to update the password.";
+                    ViewBag.Message = "repeat Password is not match";
                 }
             }
             return View();
         }
+
 
         public IActionResult resetview()
         {

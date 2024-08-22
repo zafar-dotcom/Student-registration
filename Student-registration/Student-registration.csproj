@@ -27,4 +27,8 @@
     <None Include="Views\Account\resetpasswordview.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFo\" />
+  </ItemGroup>
+
 </Project>
