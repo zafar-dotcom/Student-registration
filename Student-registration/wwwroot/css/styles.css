@@ -1,8 +1,7 @@
 ﻿/* wwwroot/css/site.css */
 /* wwwroot/css/styles.css */
-
 .form-container {
-    max-width: 500px;
+    max-width: 300px;
     margin: 100px auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -58,12 +57,12 @@
     }
 
 
-body {
+/*body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-}
+}*/
 
 .container {
     max-width: 800px;
@@ -209,4 +208,220 @@ button[type="submit"] {
   margin-left : 40px;
   margin-right: 40px;
 }
+
+
+
+
+
+
+
+.form-container {
+    max-width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .form-container .form-control {
+        border-radius: 5px;
+        margin-left: 60px;
+       
+    }
+
+    .form-container .btn {
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 8px 16px; /* Adjust padding to reduce size */
+        font-size: 0.875rem; /* Adjust font size to fit new button size */
+        width: auto; /* Let button width adjust to its content */
+        display: inline-block; /* Ensure button does not stretch full width */
+        margin-left: 60px;
+    }
+
+    .form-container .btn-primary {
+        padding: 8px 16px; /* Adjust padding for primary button */
+        font-size: 0.875rem; /* Ensure font size is appropriate */
+        margin-top:2px;
+    }
+    /* wwwroot/css/styles.css */
+
+    /* Adjusted button styles */
+    .form-container .btn-secondary {
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 8px 16px; /* Adjust padding to reduce size */
+        font-size: 0.875rem; /* Adjust font size to fit new button size */
+        width: auto; /* Let button width adjust to its content */
+        display: inline-block; /* Ensure button does not stretch full width */
+        margin-top: 6px; /* Add margin to separate from other elements */
+    }
+
+
+    .form-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-container .text-danger {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.875em;
+    }
+
+
+/*body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}*/
+
+.container {
+    max-width: 800px;
+    margin: 25px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    background-color: lightskyblue;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    color: white;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        font-size: 14px;
+        color: black
+    }
+
+    .form-group input {
+        width: 80%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    button[type="submit"]:hover {
+        background-color: #4CAF50;
+    }
+
+.text-danger {
+    color: red;
+    font-size: 12px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.custom-logout-btn {
+    background-color: aqua;
+    color: white;
+    border: 2px solid black;
+    padding: 1px;
+}
+.table-container  {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    border-collapse: separate; /* Allow space between cells */
+    border-spacing: 0 10px; /* Space between rows */
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    padding: 10px; /* Space inside cells */
+}
+
+.table th {
+    background-color: lightskyblue;
+    color: black;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: bisque;
+}
+
+.bttnn {
+    margin-right: 5px;
+}
+
+.table td .action-links {
+    display: flex;
+    gap: 5px; /* Space between links */
+}
+
+    .table td .action-links a {
+        display: inline-block;
+        margin-right: 5px; /* Optional: space between buttons */
+    }
+.tbl {
+  margin-left : 40px;
+  margin-right: 40px;
+}
+
 

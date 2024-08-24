@@ -1,29 +1,39 @@
 ﻿@model Student_registration.Models.Signin
 
-@{
-    ViewData["Title"] = "Sign In";
-}
-
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
 <head>
-    <link href="~/css/styles.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
-<div class="form-container">
-    <h2 class="text-center">Sign In</h2>
-    <form asp-controller="Account" asp-action="Signin" method="post">
-        <div class="mb-3">
-            <input type="email" class="form-control" id="Email" asp-for="Email" placeholder="Enter Email">
-            <span asp-validation-for="Email" class="text-danger"></span>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="title">Login Form</div>
+            <form asp-action="Signin"method="Post">
+                <div class="row">
+                    <i class="fas fa-user"></i>
+                    <input type="text"placeholder="Email or phone" id="Email"  asp-for="Email" required>
+                    <span asp-validation-for="Email" class="text-danger"></span> 
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" placeholder="Password" asp-for="Password" required>
+                     <span asp-validation-for="Password" class="text-danger"></span> 
+                </div>
+                <div class="pass" style="margin-top:10px;"><a href="Account/ForgotPassword">Forgot password?</a></div>
+                <div class="row button">
+                    <input type="submit" value="Login">
+                    @* <div class="pass"><a href="Account/Signin"></a></div *@>
+                </div>
+                <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+            </form>
         </div>
-        <div class="mb-3">
-            <input type="password" class="form-control" id="Password" asp-for="Password" placeholder="Enter Password">
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Sign In</button>
-    </form>
-    <form asp-controller="Account" asp-action="Rgister" method="get">
-        <div class="form-group">
-            <button type="submit" class="btn btn-secondary">Create new account</button>
-        </div>
-    </form>
-    <a href="@Url.Action("ForgotPassword", "Account")">Forgot Password?</a>
-</div>
+    </div>
+
+</body>
+</html>

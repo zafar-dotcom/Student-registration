@@ -82,10 +82,13 @@ namespace Student_registration.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> ForgotPassword(ForgotPassword model)
+        public async Task<IActionResult> ForgotPassword(ForgotPassword model)
         {
-                    
-                   string userid = "mohammadzafar12555@gmail.com";
+            Generic obj = new Generic();
+            int userExistsResult = obj.UserAlreadyExit(model.Email);
+            if (userExistsResult ==1)
+            {
+            string userid = "mohammadzafar12555@gmail.com";
                    string Password = "exmu rkcj pxor yupo";
                    string SMTPPort = "587";
                    string Host = "smtp.gmail.com";
@@ -99,6 +102,13 @@ namespace Student_registration.Controllers
                     //EmailManager.SendEmail(UserID, subject, body, To, UserID, Password, SMTPPort, Host);
                     ViewBag.Message = "Password reset link has been sent to your email.";
                     return View();
+            }
+            else
+            {
+                ModelState.AddModelError("Email", "Email does not exit,please try with valid email");
+                return View();
+
+            }
         }
         [HttpGet]
         public IActionResult testaction()

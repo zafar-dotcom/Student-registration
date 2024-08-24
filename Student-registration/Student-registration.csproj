@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Include="Views\Account\resetpasswordview.cshtml" />
+    <None Include="wwwroot\css\style.css" />
   </ItemGroup>
 
   <ItemGroup>
