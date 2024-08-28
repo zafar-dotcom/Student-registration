@@ -21,7 +21,7 @@ namespace Student_registration.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Patients(Patient patients)
+        public IActionResult Patient(Patient patients)
         {
             Generic generic = new Generic();
             bool result = generic.InsertStudent(patients);

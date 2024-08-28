@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Account\resetpasswordview.cshtml" />
+    <Content Remove="Views\Doctor\Signin.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,15 +22,21 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Account\resetpasswordview.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Doctor\Signin.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Views\Account\resetpasswordview.cshtml" />
+    <None Include="Views\Doctor\Signin.cshtml" />
     <None Include="wwwroot\css\style.css" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="NewFo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Doctor\Signin.cshtml" />
   </ItemGroup>
 
 </Project>

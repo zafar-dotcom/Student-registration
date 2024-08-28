@@ -20,7 +20,8 @@
                 @ViewBag.Message
             </div>
         }
-        <form asp-action="Rgister" method="post">
+        <form asp-controller="Account" asp-action="Rgister" method="post">
+
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -53,7 +54,7 @@
                   <input class="form-check-input" type="radio" name="Gender" id="flexRadioDefault1" value="Male">
                   <label class="form-check-label" for="flexRadioDefault1">
                     Male
-                  </label>ac
+                  </label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="Gender" id="flexRadioDefault2" value="Female" checked>
@@ -76,7 +77,7 @@
                 </div>
             </div>
 
-            <button type="submit">Create new account</button>
+            <button type="submit">Submit</button>
         </form>
              <!-- Login Button -->
         <div class="login-button">

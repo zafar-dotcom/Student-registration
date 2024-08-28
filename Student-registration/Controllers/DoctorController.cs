@@ -53,7 +53,7 @@ namespace Student_registration.Controllers
 
         }
 
-        
+
         [HttpGet]
         public IActionResult EditDoctor(int DoctorId)
         {
@@ -104,4 +104,3 @@ namespace Student_registration.Controllers
         }
     }
 }
-
